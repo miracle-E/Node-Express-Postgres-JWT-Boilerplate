@@ -1,5 +1,5 @@
-const httpStatus = require('http-status');
-const db = require('../../config/sequelize');
+const httpStatus = require("http-status");
+const db = require("../../config/sequelize");
 
 const User = db.User;
 
@@ -7,18 +7,18 @@ const User = db.User;
  * Load user and append to req.
  */
 async function load(req, res, next, id) {
-    try {
-        const userFoundResponse = await User.findById(id);
-        if (!userFoundResponse) {
-            const e = new Error('User does not exist');
-            e.status = httpStatus.NOT_FOUND;
-            return next(e);
-        }
-        req.user = userFoundResponse; // eslint-disable-line no-param-reassign
-        return next();
-    } catch (error) {
-        return next(error);
+  try {
+    const userFoundResponse = await User.findById(id);
+    if (!userFoundResponse) {
+      const e = new Error("User does not exist");
+      e.status = httpStatus.NOT_FOUND;
+      return next(e);
     }
+    req.user = userFoundResponse; // eslint-disable-line no-param-reassign
+    return next();
+  } catch (error) {
+    return next(error);
+  }
 }
 
 /**
@@ -26,7 +26,7 @@ async function load(req, res, next, id) {
  * @returns {User}
  */
 function get(req, res) {
-    return res.json(req.user);
+  return res.json(req.user);
 }
 
 /**
@@ -36,14 +36,14 @@ function get(req, res) {
  * @returns {User}
  */
 function create(req, res, next) {
-    const user = User.build({
-        username: req.body.username,
-    });
+  const user = User.build({
+    username: req.body.username,
+  });
 
-    user
-        .save()
-        .then(savedUser => res.json(savedUser))
-        .catch(e => next(e));
+  user
+    .save()
+    .then((savedUser) => res.json(savedUser))
+    .catch((e) => next(e));
 }
 
 /**
@@ -53,14 +53,14 @@ function create(req, res, next) {
  * @returns {User}
  */
 function update(req, res, next) {
-    const user = req.user;
-    user.username = req.body.username;
-    user.mobileNumber = req.body.mobileNumber;
+  const user = req.user;
+  user.username = req.body.username;
+  user.mobileNumber = req.body.mobileNumber;
 
-    user
-        .save()
-        .then(savedUser => res.json(savedUser))
-        .catch(e => next(e));
+  user
+    .save()
+    .then((savedUser) => res.json(savedUser))
+    .catch((e) => next(e));
 }
 
 /**
@@ -70,10 +70,10 @@ function update(req, res, next) {
  * @returns {User[]}
  */
 function list(req, res, next) {
-    const { limit = 50 } = req.query;
-    User.findAll({ limit })
-        .then(users => res.json(users))
-        .catch(e => next(e));
+  const { limit = 50 } = req.query;
+  User.findAll({ limit })
+    .then((users) => res.json(users))
+    .catch((e) => next(e));
 }
 
 /**
@@ -81,19 +81,19 @@ function list(req, res, next) {
  * @returns {User}
  */
 function remove(req, res, next) {
-    const user = req.user;
-    const username = req.user.username;
-    user
-        .destroy()
-        .then(() => res.json(username))
-        .catch(e => next(e));
+  const user = req.user;
+  const username = req.user.username;
+  user
+    .destroy()
+    .then(() => res.json(username))
+    .catch((e) => next(e));
 }
 
-exports.default  = {
-    load,
-    get,
-    create,
-    update,
-    list,
-    remove,
+module.exports = {
+  load,
+  get,
+  create,
+  update,
+  list,
+  remove,
 };

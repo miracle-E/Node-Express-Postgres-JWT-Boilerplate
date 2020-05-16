@@ -13,7 +13,8 @@ router
     .get(()=> userCtrl.list)
 
     /** POST /api/users - Create new user */
-    .post(validate(paramValidation.createUser), userCtrl.create);
+    .post( userCtrl.create);
+    // .post(validate(paramValidation.createUser), ()=> userCtrl.create);
 
 router
     .route("/:userId")
@@ -22,7 +23,8 @@ router
     .get(() => userCtrl.get)
 
     /** PUT /api/users/:userId - Update user */
-    .put(validate(paramValidation.updateUser), userCtrl.update)
+    .put( userCtrl.update)
+    // .put(validate(paramValidation.updateUser), userCtrl.update)
 
     /** DELETE /api/users/:userId - Delete user */
     .delete(userCtrl.remove);
@@ -30,4 +32,4 @@ router
 /** Load user when API with userId route parameter is hit */
 router.param("userId", userCtrl.load);
 
-exports.router = router;
+module.exports = router;

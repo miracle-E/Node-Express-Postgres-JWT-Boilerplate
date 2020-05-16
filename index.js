@@ -2,7 +2,7 @@
 var express = require('express');
 // var app = express();
 
-var config = require('./config/config')['config'];
+var config = require('./config/config');
 
 // make bluebird default Promise
 Promise = require('bluebird'); // eslint-disable-line no-global-assign
