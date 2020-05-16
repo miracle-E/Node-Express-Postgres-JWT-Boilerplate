@@ -14,6 +14,7 @@ const winstonInstance = require("./winston");
 const routes = require("../server/routes/index.route");
 const config = require("./config");
 const APIError = require("../server/helpers/APIError");
+const path = require("path");
 
 const app = express();
 
