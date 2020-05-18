@@ -1,8 +1,9 @@
 const httpStatus = require("http-status");
 const db = require("../../config/sequelize");
-
+const helper = require('../helpers/index');
 const User = db.User;
 
+console.log("\nHelper : ", helper)
 /**
  * Load user and append to req.
  */
@@ -31,13 +32,21 @@ function get(req, res) {
 
 /**
  * Create new user
- * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.firstName - The first name of user.
+ * @property {string} req.body.lastName - The last name of user.
+ * @property {string} req.body.email - The email of user.
+ * @property {string} req.body.password - The password of user.
+ * @property {string} req.body.address - The address of user.
  * @returns {User}
  */
 function create(req, res, next) {
   const user = User.build({
-    username: req.body.username,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    address: req.body.address,
+    status: "active",
   });
 
   user
@@ -48,14 +57,19 @@ function create(req, res, next) {
 
 /**
  * Update existing user
- * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.firstName - The first name of user.
+ * @property {string} req.body.lastName - The last name of user.
+ * @property {string} req.body.email - The email of user.
+ * @property {string} req.body.password - The password of user.
+ * @property {string} req.body.address - The address of user.
  * @returns {User}
  */
 function update(req, res, next) {
   const user = req.user;
-  user.username = req.body.username;
-  user.mobileNumber = req.body.mobileNumber;
+  user.firstName = req.body.firstName;
+  user.lastName = req.body.lastName;
+  user.email = req.body.email;
+  user.status = req.body.status;
 
   user
     .save()
@@ -70,7 +84,7 @@ function update(req, res, next) {
  * @returns {User[]}
  */
 function list(req, res, next) {
-  const { limit = 50 } = req.query;
+  const { limit = 20 } = req.query;
   User.findAll({ limit })
     .then((users) => res.json(users))
     .catch((e) => next(e));
@@ -82,10 +96,10 @@ function list(req, res, next) {
  */
 function remove(req, res, next) {
   const user = req.user;
-  const username = req.user.username;
+  let firstName = req.user.firstName;
   user
     .destroy()
-    .then(() => res.json(username))
+    .then(() => res.json(firstName))
     .catch((e) => next(e));
 }
 
