@@ -13,14 +13,9 @@ var db = require('./config/sequelize');
 
 // listen on port config.port
 app.listen(config.port, () => {
+  console.info(`\n#####################################################`);
   console.info(`server started on port ${config.port} (${config.env})`);
+  console.info(`#####################################################\n`);
 });
-
-// app.get('/', function (req, res) {
-//   res.send('Hello World!');
-// });
-// app.listen(3000, function () {
-//   console.log('Example app listening on port 3000!');
-// });
 
 module.exports = app;

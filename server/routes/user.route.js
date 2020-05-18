@@ -1,35 +1,41 @@
-
 /// <reference types="node" />
 const express = require("express");
 const { validate } = require("express-validation");
 const paramValidation = require("../../config/param-validation");
-const userCtrl = require("../controllers/user.controller");
+const {
+  load: loadUser,
+  list: listUsers,
+  create: createUser,
+  get: getUser,
+  update: updateUser,
+  remove: removeUser,
+} = require("../controllers/user.controller");
 
 const router = express.Router(); // eslint-disable-line new-cap
 router
-    .route("/")
+  .route("/")
 
-    /** GET /api/users - Get list of users */
-    .get(()=> userCtrl.list)
+  /** GET /api/users - Get list of users */
+  .get(listUsers)
 
-    /** POST /api/users - Create new user */
-    .post( userCtrl.create);
-    // .post(validate(paramValidation.createUser), ()=> userCtrl.create);
+  /** POST /api/users - Create new user */
+  .post(createUser);
+// .post(validate(paramValidation.createUser), ()=> userCtrl.create);
 
 router
-    .route("/:userId")
+  .route("/:userId")
 
-    /** GET /api/users/:userId - Get user */
-    .get(() => userCtrl.get)
+  /** GET /api/users/:userId - Get user */
+  .get(getUser)
 
-    /** PUT /api/users/:userId - Update user */
-    .put( userCtrl.update)
-    // .put(validate(paramValidation.updateUser), userCtrl.update)
+  /** PUT /api/users/:userId - Update user */
+  .put(updateUser)
+  // .put(validate(paramValidation.updateUser), userCtrl.update)
 
-    /** DELETE /api/users/:userId - Delete user */
-    .delete(userCtrl.remove);
+  /** DELETE /api/users/:userId - Delete user */
+  .delete(removeUser);
 
 /** Load user when API with userId route parameter is hit */
-router.param("userId", userCtrl.load);
+router.param("userId", loadUser);
 
 module.exports = router;
