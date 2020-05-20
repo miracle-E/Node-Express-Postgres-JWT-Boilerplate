@@ -6,10 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
-      id: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
       },
       amount: {
         type: Sequelize.INTEGER,
@@ -21,8 +18,8 @@ module.exports = {
       user_id: {
         type: Sequelize.STRING,
       },
-      cart_is: {
-        type: Sequelize.STRING,
+      cart_id: {
+        type: Sequelize.UUID,
       },
       createdAt: {
         allowNull: false,

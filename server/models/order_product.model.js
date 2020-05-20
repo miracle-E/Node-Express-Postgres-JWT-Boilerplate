@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const OrderProduct = sequelize.define(
     "OrderProduct",
     {
-      order_id: DataTypes.STRING,
-      product_id: DataTypes.STRING,
+      order_id: DataTypes.UUID,
+      product_id: DataTypes.UUID,
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,

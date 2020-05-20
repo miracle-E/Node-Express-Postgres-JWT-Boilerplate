@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      category_id: DataTypes.STRING,
+      category_id: DataTypes.UUID,
       createdAt: {
         type: DataTypes.DATE,
         allowNull: false,

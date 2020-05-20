@@ -6,13 +6,13 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
       },
       product_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
       },
       category_id: {
-        type: Sequelize.STRING,
+        type: Sequelize.UUID,
       },
       createdAt: {
         allowNull: false,
